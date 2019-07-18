@@ -8,11 +8,14 @@ import android.widget.TextView;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class MainActivity extends AppCompatActivity {
 
-    Set<Integer> set = new HashSet<Integer>();
-    int[] totNum = new int[1000];
+    final int MAXORDER = 1000;
+    SortedSet<Integer> set = new TreeSet<Integer>();
+    int[] totNum = new int[MAXORDER];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,24 +25,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void addSushi(View view) {
         TextView sushiNum = findViewById(R.id.sushiNum);
-
         String[] numSushi = (sushiNum.getText().toString()).split(",");
-
         sushiNum.setText("");
 
-        for (int i = 0; i < numSushi.length; i++) {
-            String[] qtSushi = numSushi[i].split(" ");
+        for (String order : numSushi) {
+            int start = 0, end = order.length() - 1;
+            while (start < order.length() && end > start && end < order.length() && order.charAt(start) == ' ' & order.charAt(end) == ' ') {
+                if (order.charAt(start) == ' ') start++;
+                if (order.charAt(end) == ' ') end--;
+            }
+
+            String[] qtSushi = (order.substring(start, end + 1)).split(" ");
             int[] finalData = {-1, 1};
             int cont = 0;
 
-            for (int j = 0; cont < 2 && j < qtSushi.length; j++) {
+            for (int i = 0; cont < 2 & i < qtSushi.length; i++) {
                 try {
-                    finalData[cont] = Integer.parseInt(qtSushi[j]);
+                    finalData[cont] = Integer.parseInt(qtSushi[i]);
                     cont++;
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
 
-            if (cont > 0 & finalData[0] >= 0 & finalData[0] < 1000 & finalData[1] > 0){
+            if (cont > 0 & finalData[0] > -1 & finalData[0] < MAXORDER & finalData[1] > 0) {
                 if (totNum[finalData[0]] == 0) set.add(finalData[0]);
                 totNum[finalData[0]] += finalData[1];
             }
