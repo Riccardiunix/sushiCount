@@ -6,8 +6,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (String order : numSushi) {
             int start = 0, end = order.length() - 1;
-            while (start < order.length() && end > start && end < order.length() && order.charAt(start) == ' ' & order.charAt(end) == ' ') {
+            while (end > start && end < order.length() && order.charAt(start) == ' ' & order.charAt(end) == ' ') {
                 if (order.charAt(start) == ' ') start++;
                 if (order.charAt(end) == ' ') end--;
             }
