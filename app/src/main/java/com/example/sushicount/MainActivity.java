@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void sendMessage(View view) {
+    public void addSushi(View view) {
         TextView sushiNum = findViewById(R.id.sushiNum);
 
         String[] numSushi = (sushiNum.getText().toString()).split(",");
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < numSushi.length; i++) {
             String[] qtSushi = numSushi[i].split(" ");
-            int[] finalData = {0, 1};
+            int[] finalData = {-1, 1};
             int cont = 0;
 
             for (int j = 0; cont < 2 && j < qtSushi.length; j++) {
